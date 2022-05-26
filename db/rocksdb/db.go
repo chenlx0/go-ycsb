@@ -11,6 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build rocksdb
 // +build rocksdb
 
 package rocksdb
@@ -138,6 +139,7 @@ func getOptions(p *properties.Properties) *gorocksdb.Options {
 	opts := gorocksdb.NewDefaultOptions()
 	opts.SetCreateIfMissing(true)
 
+	opts.SetCompactionStyle(gorocksdb.UniversalCompactionStyle)
 	opts.SetAllowConcurrentMemtableWrites(p.GetBool(rocksdbAllowConcurrentMemtableWrites, true))
 	opts.SetAllowMmapReads(p.GetBool(rocsdbAllowMmapReads, false))
 	opts.SetAllowMmapWrites(p.GetBool(rocksdbAllowMmapWrites, false))
@@ -154,7 +156,7 @@ func getOptions(p *properties.Properties) *gorocksdb.Options {
 	opts.SetNumLevels(p.GetInt(rocksdbNumLevels, 7))
 	opts.SetUseDirectReads(p.GetBool(rocksdbUseDirectReads, false))
 	opts.SetUseFsync(p.GetBool(rocksdbUseFsync, false))
-	opts.SetWriteBufferSize(p.GetInt(rocksdbWriteBufferSize, 64<<20))
+	opts.SetWriteBufferSize(p.GetInt(rocksdbWriteBufferSize, 16<<20))
 	opts.SetMaxWriteBufferNumber(p.GetInt(rocksdbMaxWriteBufferNumber, 2))
 	opts.SetWalDir(p.GetString(rocksdbWALDir, ""))
 

@@ -30,7 +30,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.1.1
 	github.com/magiconair/properties v1.8.0
-	github.com/mattn/go-sqlite3 v2.0.1+incompatible
+	github.com/mattn/go-sqlite3 v1.14.12
 	github.com/minio/minio-go v6.0.14+incompatible
 	github.com/pingcap/errors v0.11.5-0.20211224045212-9687c2b0f87c
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a // indirect
