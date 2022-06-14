@@ -164,6 +164,14 @@ func NewClient(p *properties.Properties, workload ycsb.Workload, db ycsb.DB) *Cl
 	return &Client{p: p, workload: workload, db: db}
 }
 
+func (c *Client) CheckLoadAndReset() bool {
+	if c.p.GetBool(prop.DoTransactions, true) {
+		return false
+	}
+	c.p.SetValue(prop.DoTransactions, "true")
+	return true
+}
+
 // Run runs the workload to the target DB, and blocks until all workers end.
 func (c *Client) Run(ctx context.Context) {
 	var wg sync.WaitGroup

@@ -131,5 +131,11 @@ func GetOpNames() []string {
 	return globalMeasure.getOpName()
 }
 
+func CleanMeasurement() {
+	for k := range globalMeasure.opMeasurement {
+		delete(globalMeasure.opMeasurement, k)
+	}
+}
+
 var globalMeasure *measurement
 var warmUp int32 // use as bool, 1 means in warmup progress, 0 means warmup finished.
