@@ -149,16 +149,18 @@ func getOptions(p *properties.Properties) *gorocksdb.Options {
 	opts.SetLevel0FileNumCompactionTrigger(p.GetInt(rocksdbLevel0FileNumCompactionTrigger, 4))
 	opts.SetLevel0SlowdownWritesTrigger(p.GetInt(rocksdbLevel0SlowdownWritesTrigger, 20))
 	opts.SetLevel0StopWritesTrigger(p.GetInt(rocksdbLevel0StopWritesTrigger, 36))
-	opts.SetMaxBytesForLevelBase(p.GetUint64(rocksdbMaxBytesForLevelBase, 256<<20))
+	opts.SetMaxBytesForLevelBase(p.GetUint64(rocksdbMaxBytesForLevelBase, 64<<20))
 	opts.SetMaxBytesForLevelMultiplier(p.GetFloat64(rocksdbMaxBytesForLevelMultiplier, 10))
 	opts.SetMaxTotalWalSize(p.GetUint64(rocksdbMaxTotalWalSize, 0))
 	opts.SetMemtableHugePageSize(p.GetInt(rocksdbMemtableHugePageSize, 0))
 	opts.SetNumLevels(p.GetInt(rocksdbNumLevels, 7))
 	opts.SetUseDirectReads(p.GetBool(rocksdbUseDirectReads, false))
 	opts.SetUseFsync(p.GetBool(rocksdbUseFsync, false))
-	opts.SetWriteBufferSize(p.GetInt(rocksdbWriteBufferSize, 16<<20))
+	opts.SetWriteBufferSize(p.GetInt(rocksdbWriteBufferSize, 4<<20))
 	opts.SetMaxWriteBufferNumber(p.GetInt(rocksdbMaxWriteBufferNumber, 2))
 	opts.SetWalDir(p.GetString(rocksdbWALDir, ""))
+
+	opts.SetMaxBackgroundCompactions(8)
 
 	opts.SetBlockBasedTableFactory(getTableOptions(p))
 
